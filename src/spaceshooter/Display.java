@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 public class Display {
 	JFrame frame;
 	Canvas canvas;
-	//
 	public Display(String title,int width, int height) {
 		frame = new JFrame(title);;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
