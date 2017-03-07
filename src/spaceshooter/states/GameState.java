@@ -13,7 +13,7 @@ public class GameState extends State{
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.BLUE);
 		g.drawLine(0, 0, 100, 500);
 	}
 
