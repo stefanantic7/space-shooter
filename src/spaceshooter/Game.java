@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
+import javafx.scene.effect.GaussianBlur;
 import spaceshooter.states.GameState;
 import spaceshooter.states.State;
 
@@ -14,7 +15,14 @@ public class Game implements Runnable{
 	private Thread thread;
 	private boolean running;
 	private State gameState;
-	private int width = 500, height=500;
+	private int width = 700, height=700;
+	private Handler handler;
+	
+	public Display getDisplay(){
+		return display;
+	}
+	
+	
 	public void start(){
 		running = true;
 		thread = new Thread(this);
@@ -28,9 +36,10 @@ public class Game implements Runnable{
 		}
 	}
 	private void init(){
+		handler = new Handler(this);
 		display = new Display("Space Shooter", width, height);
 		canvas = display.getCanvas();
-		gameState = new GameState();
+		gameState = new GameState(handler);
 		State.setCurrentState(gameState);
 		
 	}
