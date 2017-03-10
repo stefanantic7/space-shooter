@@ -2,8 +2,12 @@ package spaceshooter;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
+
+import spaceshooter.input.KeyManager;
 
 public class Display {
 	JFrame frame;
@@ -29,5 +33,8 @@ public class Display {
 	}
 	public Dimension getDimension(){
 		return new Dimension(width, height);
+	}
+	public JFrame getFrame(){
+		return frame;
 	}
 }
