@@ -24,5 +24,7 @@ public class Handler {
 	public ArrayList<EnemyShip> getEnemies(){
 		return game.getGameState().getEnemies();
 	}
-	
+	public static int rand(int min, int max){
+		return min + (int)(Math.random() * ((max - min) + 1));
+	}
 }

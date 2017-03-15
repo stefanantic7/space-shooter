@@ -7,12 +7,23 @@ import java.awt.Rectangle;
 import spaceshooter.gfx.Assets;
 
 public class EnemyShip extends Creature{
+
 	public EnemyShip(int x, int y, int healty, int speed) {
 		super(x, y, Assets.enemyShipImage, healty, speed, new Rectangle(x,y,Assets.enemyShipImage.getWidth(),Assets.enemyShipImage.getHeight()));
 		
 	}
+	
+	public Rectangle getRectangle(){
+		return this.rectangle;
+	}
+	
+	public int getY(){
+		return y;
+	}
 	@Override
 	public void tick() {
+		y=y+speed;
+		rectangle.y+=speed;
 		
 	}
 

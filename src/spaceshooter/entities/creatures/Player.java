@@ -14,14 +14,18 @@ import spaceshooter.input.KeyManager;
 
 public class Player extends Creature{
 
-	Handler handler;
-	ArrayList<Bullet> lasers = new ArrayList<>();
+	public static boolean canShoot = true;
+	private Handler handler;
+	private ArrayList<Bullet> lasers = new ArrayList<>();
 	public Player(Handler handler, int x, int y, int healty, int speed) {
 		super(x, y,Assets.playerImage, healty, speed, new Rectangle(x,y,Assets.playerImage.getWidth(),Assets.playerImage.getHeight()));
 
 		this.handler = handler;
 	}
 	
+	public Rectangle getRectangle(){
+		return this.rectangle;
+	}
 	
 	@Override
 	public void tick() {
@@ -51,26 +55,39 @@ public class Player extends Creature{
 				x=x+speed;	
 				rectangle.x +=speed;
 			}
-		}
-		if(KeyManager.keys[KeyEvent.VK_SPACE]){
-			lasers.add(new GreenLaser(x+image.getWidth()/2-Assets.greenLaserImage.getWidth()/2, y-Assets.greenLaserImage.getHeight(), 5, 10));
 			
 		}
+		if(KeyManager.keys[KeyEvent.VK_SPACE]){
+			if(canShoot){
+				lasers.add(new GreenLaser(x+image.getWidth()/2-Assets.greenLaserImage.getWidth()/2, y-Assets.greenLaserImage.getHeight(), 5, 10));
+				canShoot = false;
+			}
+			
+		}
+		loop:
 		for(int i=0;i<lasers.size();i++){
 			Bullet laser = lasers.get(i);
 			laser.tick();
-			for(int j=0;j<handler.getEnemies().size();j++){
-				EnemyShip e = handler.getEnemies().get(j);
-				if(laser.getRectangle().intersects(e.rectangle)){
-					handler.getEnemies().remove(e);
-					--j;
-				}
-			}
+			
+			
 			if(laser.getY()<0-Assets.greenLaserImage.getHeight() || laser.getX()<0 || laser.getX()>handler.getFrameDimension().getWidth()){
 				lasers.remove(i);
 				--i;
+				continue;
+			}
+			for(int j=0;j<handler.getEnemies().size();j++){
+				EnemyShip e = handler.getEnemies().get(j);
+				if(laser.getRectangle().intersects(e.rectangle)){
+					((GreenLaser)laser).setImage(Assets.greenLaserShotImage);
+					handler.getEnemies().remove(e);
+					lasers.remove(i);
+					--i;
+					--j;
+					continue loop;
+				}
 			}
 		}
+		
 		
 	}
 

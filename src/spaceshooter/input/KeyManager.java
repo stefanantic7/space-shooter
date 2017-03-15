@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 
 import javax.sound.midi.Soundbank;
 
+import spaceshooter.entities.creatures.Player;
+
 
 public class KeyManager implements KeyListener {
 
@@ -19,11 +21,15 @@ public class KeyManager implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()] = true;
+		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		keys[e.getKeyCode()] = false;
+		if(e.getKeyCode() == KeyEvent.VK_SPACE){
+			Player.canShoot = true;
+		}
 	}
 
 }
