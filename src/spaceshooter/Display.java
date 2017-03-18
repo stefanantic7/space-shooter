@@ -18,13 +18,16 @@ public class Display {
 		this.height = height;
 		frame = new JFrame(title);;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(width, height);
+		frame.setSize(JFrame.MAXIMIZED_HORIZ, JFrame.MAXIMIZED_VERT);
 		canvas = new Canvas();
-		canvas.setSize(width, height);
+		canvas.setSize(JFrame.MAXIMIZED_HORIZ, JFrame.MAXIMIZED_VERT);
 		canvas.setFocusable(false);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.add(canvas);
+		System.out.println(JFrame.MAXIMIZED_HORIZ);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		frame.setUndecorated(true);
 		frame.pack();
 		frame.setVisible(true);
 	}

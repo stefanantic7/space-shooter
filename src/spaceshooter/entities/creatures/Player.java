@@ -3,7 +3,9 @@ package spaceshooter.entities.creatures;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import spaceshooter.Handler;
@@ -13,7 +15,9 @@ import spaceshooter.gfx.Assets;
 import spaceshooter.input.KeyManager;
 
 public class Player extends Creature{
-
+	
+	private boolean shield=true;
+	private BufferedImage shieldImage;
 	public static boolean canShoot = true;
 	private Handler handler;
 	private ArrayList<Bullet> lasers = new ArrayList<>();
@@ -30,6 +34,15 @@ public class Player extends Creature{
 	@Override
 	public void tick() {
 		image = Assets.playerImage;
+		if(shield){
+			shieldImage = Assets.playerShieldImage;
+			
+			rectangle.height=0;
+			
+		}
+		else{
+			rectangle.height=Assets.playerImage.getHeight();
+		}
 		if(KeyManager.keys[KeyEvent.VK_UP]){
 			if(y-speed>0){
 				y=y-speed;
@@ -93,7 +106,11 @@ public class Player extends Creature{
 
 	@Override
 	public void render(Graphics g) {
+		if(shield){
+			g.drawImage(shieldImage, x-25, y-23, null);	
+		}
 		g.drawImage(image, x, y, null);
+		
 		for(Bullet laser:lasers){
 			laser.render(g);
 		}
