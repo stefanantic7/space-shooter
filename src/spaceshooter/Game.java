@@ -2,6 +2,7 @@ package spaceshooter;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
 import javafx.scene.effect.GaussianBlur;
@@ -16,7 +17,6 @@ public class Game implements Runnable{
 	private Thread thread;
 	private boolean running;
 	private State gameState;
-	private int width = 700, height=700;
 	private Handler handler;
 	
 	
@@ -35,7 +35,7 @@ public class Game implements Runnable{
 		}
 	}
 	private void init(){
-		display = new Display("Space Shooter", width, height);
+		display = new Display("Space Shooter",1);
 		canvas = display.getCanvas();
 		handler = new Handler(this,display);
 		gameState = new GameState(handler);
@@ -56,9 +56,10 @@ public class Game implements Runnable{
 			bs = canvas.getBufferStrategy();
 		}
 		Graphics g = bs.getDrawGraphics();
-		g.clearRect(0, 0, width, height);
-		
-		State.getCurrentState().render(g);
+		g.clearRect(0, 0, handler.getFrameDimension().width*2, handler.getFrameDimension().height*2);
+		Graphics2D g2d = (Graphics2D)g;
+//		g2d.scale(2, 2);
+		State.getCurrentState().render(g2d);
 		
 		bs.show();
 	}

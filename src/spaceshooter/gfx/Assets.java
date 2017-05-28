@@ -7,7 +7,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public class Assets {
-	public static BufferedImage background = ImageLoader.loadImage("/textures/Background/starBackground.png");
+	public static BufferedImage background = ImageLoader.loadImage("/textures/Background/background2.jpg");
 	public static BufferedImage playerImage = ImageLoader.loadImage("/textures/player.png");
 	public static BufferedImage playerShieldImage = ImageLoader.loadImage("/textures/shield.png");
 	public static BufferedImage playerLeftImage = ImageLoader.loadImage("/textures/playerLeft.png");

@@ -1,6 +1,7 @@
 package spaceshooter;
 
 import java.awt.Dimension;
+import java.awt.geom.Dimension2D;
 import java.util.ArrayList;
 
 import spaceshooter.entities.creatures.EnemyShip;
@@ -21,6 +22,7 @@ public class Handler {
 	public Dimension getFrameDimension(){
 		return display.getDimension();
 	}
+	
 	public ArrayList<EnemyShip> getEnemies(){
 		return game.getGameState().getEnemies();
 	}

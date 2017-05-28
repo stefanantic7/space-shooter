@@ -13,10 +13,11 @@ import spaceshooter.entities.bullets.Bullet;
 import spaceshooter.entities.bullets.GreenLaser;
 import spaceshooter.gfx.Assets;
 import spaceshooter.input.KeyManager;
+import spaceshooter.states.GameState;
 
 public class Player extends Creature{
 	
-	private boolean shield=true;
+	private boolean shield=false;
 	private BufferedImage shieldImage;
 	public static boolean canShoot = true;
 	private Handler handler;
@@ -94,6 +95,7 @@ public class Player extends Creature{
 					((GreenLaser)laser).setImage(Assets.greenLaserShotImage);
 					handler.getEnemies().remove(e);
 					lasers.remove(i);
+					++GameState.rank;
 					--i;
 					--j;
 					continue loop;

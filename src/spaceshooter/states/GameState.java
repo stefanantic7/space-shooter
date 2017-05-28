@@ -1,7 +1,8 @@
 package spaceshooter.states;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -24,6 +25,7 @@ public class GameState extends State{
 	private TimerTask enemyTask;
 	private TimerTask laserTask;
 	private ArrayList<Bullet> lasers = new ArrayList<>();
+	public static int rank=0;
 	public GameState(Handler handler) {
 		background = Assets.background;
 		this.handler = handler;
@@ -33,19 +35,18 @@ public class GameState extends State{
         enemyTask = new TimerTask() {
             @Override
             public void run() {
-                // whatever you need to do every 1 seconds
-        		enemies.add(new EnemyShip(Handler.rand(0, 700-Assets.enemyShipImage.getWidth()), 100, 100, 5));
+        		enemies.add(new EnemyShip(Handler.rand(0, handler.getFrameDimension().width-Assets.enemyShipImage.getWidth()), 100, 100, 5));
             }
         };
         laserTask = new TimerTask() {
 			
 			@Override
 			public void run() {          
-				lasers.add(new RedLaser(Handler.rand(0, 700-Assets.redLaserImage.getWidth()), 0,5, 5));
+				lasers.add(new RedLaser(Handler.rand(0, handler.getFrameDimension().width-Assets.redLaserImage.getWidth()), 0,5, 7));
 			}
 		};
         timer.schedule(enemyTask, 0,1000);
-        timer.schedule(laserTask, 0,570);
+        timer.schedule(laserTask, 0,700);
 	}
 	public Player getPlayer(){
 		return player;
@@ -60,16 +61,19 @@ public class GameState extends State{
 		}
 		for(int i=0;i<enemies.size();i++){
 			EnemyShip enemy = enemies.get(i);
-			enemy.tick();
+			
 			if(enemy.getY()>handler.getFrameDimension().height){
 				--i;
 				enemies.remove(enemy);
+				continue;
 				
 			}
 			if(player!=null && player.getRectangle().intersects(enemy.getRectangle())){
 				player = new Player(handler,handler.getFrameDimension().width/2-Assets.playerImage.getWidth()/2, handler.getFrameDimension().height-100, 100,13);
 				System.out.println("sece");
+				--rank;
 			}
+			enemy.tick();
 		}
 		for(int i=0; i<lasers.size();i++){
 			Bullet laser = lasers.get(i);
@@ -81,6 +85,10 @@ public class GameState extends State{
 			if(player.getRectangle().intersects(laser.getRectangle())){
 				player = new Player(handler,handler.getFrameDimension().width/2-Assets.playerImage.getWidth()/2, handler.getFrameDimension().height-100, 100,13);
 				System.out.println("sece");
+				--rank;
+				--i;
+				lasers.remove(laser);
+				continue;
 			}
 			laser.tick();
 		}
@@ -89,6 +97,8 @@ public class GameState extends State{
 	int a=500;
 	@Override
 	public void render(Graphics g) {
+
+		
 		g.drawImage(background, 0, 0, handler.getFrameDimension().width , handler.getFrameDimension().height, null);
 		if(player!=null){
 			player.render(g);
@@ -101,6 +111,12 @@ public class GameState extends State{
 			lasers.get(i).render(g);
 		}
 		
+		int fontSize = 20;
+		g.setFont(new Font("TimesRoman", Font.PLAIN, fontSize));
+	     
+	    g.setColor(Color.red);
+	    
+	    g.drawString(""+rank, 10, 20);
 //		Rectangle r=new Rectangle(0, 0, 100, 100);
 //		Rectangle r2 = new Rectangle(a, 50, 100, 100);
 //		Graphics2D g2d = (Graphics2D) g;
