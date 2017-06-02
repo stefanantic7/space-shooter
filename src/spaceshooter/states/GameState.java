@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import spaceshooter.Handler;
+import spaceshooter.entities.Entity;
 import spaceshooter.entities.bullets.Bullet;
 import spaceshooter.entities.bullets.RedLaser;
 import spaceshooter.entities.creatures.EnemyShip;
@@ -87,11 +89,13 @@ public class GameState extends State{
 				System.out.println("sece");
 				--rank;
 				--i;
+
 				lasers.remove(laser);
 				continue;
 			}
 			laser.tick();
 		}
+
 	}
 	
 	int a=500;
