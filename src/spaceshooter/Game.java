@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
-import javafx.scene.effect.GaussianBlur;
 import spaceshooter.input.KeyManager;
 import spaceshooter.states.GameState;
 import spaceshooter.states.State;
